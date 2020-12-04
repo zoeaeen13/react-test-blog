@@ -22,6 +22,13 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "prettier --tab-width 2 --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -41,6 +48,9 @@
     ]
   },
   "devDependencies": {
-    "eslint-config-prettier": "^6.15.0"
+    "eslint-config-prettier": "^6.15.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.2",
+    "prettier": "2.2.1"
   }
 }
