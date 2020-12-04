@@ -5,20 +5,22 @@ import Intro from "../../components/Intro";
 import Pagination from "../../components/Pagination";
 import {
   HomePageRoot,
-  HomeWrapper,ArchiveItem,ArchiveTitle,
+  HomeWrapper,
+  ArchiveItem,
+  ArchiveTitle,
 } from "../../components/Home";
 
 function ArchivePage() {
   let { slug } = useParams();
   const [userPosts, setUserPosts] = useState([]);
   const [author, setAuthor] = useState(null);
-  const [archivePosts, setArchivePosts] = useState([])
+  const [archivePosts, setArchivePosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPage, setTotalPage] = useState(0)
+  const [totalPage, setTotalPage] = useState(0);
   const [recentPosts, setRecentPosts] = useState([]);
   const handleChangePage = (page) => {
-    setCurrentPage(page)
-  }
+    setCurrentPage(page);
+  };
 
   // init
   useEffect(() => {
