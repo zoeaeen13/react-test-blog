@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const PaginationWrapper = styled.div`
   display: flex;
@@ -64,3 +65,9 @@ export default function Pagination({ current, total, handleChangePage }) {
     </PaginationWrapper>
   );
 }
+
+Pagination.propTypes = {
+  current: PropTypes.number,
+  total: PropTypes.number,
+  handleChangePage: PropTypes.func,
+};

@@ -233,6 +233,7 @@ PostInfo.propTypes = {
 };
 
 RelatedPost.propTypes = {
+  order: PropTypes.number,
   post: PropTypes.object,
 };
 
