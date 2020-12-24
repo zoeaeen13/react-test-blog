@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllPosts, getUserPosts } from "../../WebAPI";
+import { getUserPosts, getArchivePosts } from "../../WebAPI";
 import { useParams } from "react-router-dom";
 import Intro from "../../components/Intro";
 import Pagination from "../../components/Pagination";
@@ -15,9 +15,9 @@ function ArchivePage() {
   const [userPosts, setUserPosts] = useState([]);
   const [author, setAuthor] = useState(null);
   const [archivePosts, setArchivePosts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const [recentPosts, setRecentPosts] = useState([]);
+  // const [recentPosts, setRecentPosts] = useState([]);
   const handleChangePage = (page) => {
     setCurrentPage(page);
   };
@@ -37,25 +37,34 @@ function ArchivePage() {
       });
     } else {
       // archive
-      getAllPosts().then((posts) => {
-        if (posts.length > 0) {
-          let quotient = Math.ceil(posts.length / 5);
-          if (!posts.length % 5) {
-            quotient += 1;
+      getArchivePosts(1)
+        .then((res) => {
+          if (res.headers.get("X-Total-Count")) {
+            const total = Number(res.headers.get("X-Total-Count"));
+            let quotient = Math.ceil(total / 5);
+            if (!total % 5) {
+              quotient += 1;
+            }
+            console.log("totalPage", quotient);
+            setTotalPage(quotient);
+            return res.json();
           }
+        })
+        .then((posts) => {
+          console.log("posts", posts);
           setArchivePosts(posts);
-          setCurrentPage(1);
-          setTotalPage(quotient);
-        }
-      });
+        });
     }
   }, [slug]);
 
   // change pages
   useEffect(() => {
-    const index = (currentPage - 1) * 5;
-    setRecentPosts(archivePosts.slice(index, index + 5));
-  }, [archivePosts, currentPage]);
+    return getArchivePosts(currentPage)
+      .then((res) => res.json())
+      .then((posts) => {
+        setArchivePosts(posts);
+      });
+  }, [currentPage]);
 
   return (
     <HomePageRoot>
@@ -67,11 +76,11 @@ function ArchivePage() {
             '{author.nickname}' 目前發表了 {author.postNum} 篇文章
           </ArchiveTitle>
         )}
-        {recentPosts &&
-          recentPosts.map((post) => <ArchiveItem key={post.id} post={post} />)}
+        {archivePosts &&
+          archivePosts.map((post) => <ArchiveItem key={post.id} post={post} />)}
         {slug &&
           userPosts.map((post) => <ArchiveItem key={post.id} post={post} />)}
-        {!slug && recentPosts && totalPage && (
+        {!slug && archivePosts && totalPage && (
           <Pagination
             current={currentPage}
             total={totalPage}

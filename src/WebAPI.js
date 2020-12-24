@@ -8,6 +8,12 @@ export const getAllPosts = () => {
   );
 };
 
+export const getArchivePosts = (pageNum) => {
+  return fetch(
+    `${BASE_URL}/posts?_limit=5&_page=${pageNum}&_sort=createdAt&_order=desc`
+  ).then((res) => res);
+};
+
 export const getPostInfo = (id) => {
   return fetch(`${BASE_URL}/posts?id=${id}&_expand=user`).then((res) =>
     res.json()

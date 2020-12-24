@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { AppWrapper } from "./Home";
 import Header from "./Header";
 import HomePage from "../pages/Home";
 import AboutPage from "../pages/About";
@@ -29,7 +30,7 @@ function App() {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <div>
+      <AppWrapper>
         <Router>
           <Header />
           <Switch>
@@ -59,7 +60,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      </div>
+      </AppWrapper>
     </AuthContext.Provider>
   );
 }

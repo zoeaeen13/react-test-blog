@@ -6,11 +6,16 @@ import { setAuthToken } from "../utills";
 import { MEDIA_QUERY_MD } from "../constants/style";
 
 const Nav = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #eeeeee;
-  padding: 20px;
+  padding: 10px;
+  background: white;
 
   ${MEDIA_QUERY_MD} {
     flex-direction: column;

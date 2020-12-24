@@ -135,6 +135,10 @@ const ArchiveContent = styled.p`
   overflow: hidden;
 `;
 
+export const AppWrapper = styled.div`
+  padding-top: 15vh;
+`;
+
 export const RelatedTitle = styled.h4`
   margin: 10px 0;
   border-radius: 4px;
